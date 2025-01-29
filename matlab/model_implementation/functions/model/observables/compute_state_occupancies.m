@@ -1,0 +1,29 @@
+function P = compute_state_occupancies(pset)
+% compute_state_occupancies: compute microstate occupancy probabilities
+% P = compute_state_occupancies(pset)
+% inputs:
+%   pset = parameter set structure (struct)
+% outputs:
+%   P = microstate occupancy probabilities (3x1 vector)
+
+% extract parameters
+[k1a,k11a,k2,k22,k3,k33,k4,k44,...
+          k5,k55,k6,k66,k7,k77,k8,k88,kclv,k1b,k11b,k9,k99,...
+          f1a,f11a,f2,f22,f3,f33,f4,f44,...
+          f5,f55,f6,f66,f7,f77,f8,f88,fclv,f1b,f11b,f9,f99]=extract_parameters(pset);
+
+% compute steady-state probabilities
+P = zeros(3,1);
+% open state probability
+P(1) = f33.*f44.*f55.*f66.*(f2.*k2+f22.*k22).*k33.*k44.*k55.*k66.*(f2.* ...
+  f55.*f66.*k2.*(f33.*f44.*k33.*k44+f3.*k3.*(f4.*k4+f44.*k44)).* ...
+  k55.*k66+f22.*f33.*f44.*k22.*k33.*k44.*(f55.*f66.*k55.*k66+f5.* ...
+  k5.*(f6.*k6+f66.*k66))).^(-1);
+% checkpoint state probability 
+P(2) = f44.*f66.*k44.*(f22.*f33.*f5.*k22.*k33.*k5+f2.*f3.*f55.*k2.*k3.* ...
+  k55).*k66.*(f2.*f55.*f66.*k2.*(f33.*f44.*k33.*k44+f3.*k3.*(f4.*k4+ ...
+  f44.*k44)).*k55.*k66+f22.*f33.*f44.*k22.*k33.*k44.*(f55.*f66.* ...
+  k55.*k66+f5.*k5.*(f6.*k6+f66.*k66))).^(-1);
+% closed state probability
+P(3) = 1 - P(1) - P(2);
+end
