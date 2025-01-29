@@ -11,8 +11,8 @@ switch_to_project_directory(); % switch to the code directory
 clc;
 
 % load energies from prior best fit model
-load("model-02g-wt-48.mat");
-load("model-02g-hf1-48.mat");
+load("./data/matlab/model-02g-wt-48.mat");
+load("./data/matlab/model-02g-hf1-48.mat");
 
 x0 = [Ewt; Ehf1];
 
