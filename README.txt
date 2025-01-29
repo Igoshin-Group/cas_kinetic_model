@@ -3,9 +3,7 @@ This folder contains the code required for the data analysis and model
 fitting described in the manuscript.
 
 Note that hidden Markov model (HMM) fitting via ebFRET requires user input
-and cannot be fully automated. Relevant ebFRET settings can be found in
-the manuscript, and are reproduced here for convenience:
-  Include settings here!!!
+and cannot be fully automated.
 
 
 FOLDERS:
