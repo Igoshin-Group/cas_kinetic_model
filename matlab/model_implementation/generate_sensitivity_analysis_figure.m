@@ -2,12 +2,10 @@ clc;
 clear;
 close all;
 
-working_directory = pwd(); % get the script directory
-switch_to_project_directory(); % switch to the code directory
 
 %% Load the fits
 % Load the distal substrate indices
-load("../data/matlab/distal_substrate_indices.mat");
+load("./data/matlab/distal_substrate_indices.mat");
 substrates = off_idx;
 num_substrates = length(substrates);
 
@@ -98,8 +96,8 @@ legend("WT","HF1");
 title("On-Target Speed Sensitivity Analysis");
 pbaspect([2,1,1]);
 ylim([-1,1]);
-saveas(gcf,"../best_model_sensitivity_on_target_speed.eps","epsc");
 
+save_figure(gcf, "../../figures/", "sensitivity_analysis/", "best_model_on_target_speed");
 %%
 S_outputs = zeros(length(parameters), 2);
 for ii = 1:length(parameters)
@@ -121,6 +119,8 @@ xlabel("Parameter");
 ylabel("Sensitivity (log-gain)");
 legend("WT","HF1");
 title("Off-Target Specificity Sensitivity Analysis");
+
+save_figure(gcf, "../../figures/", "sensitivity_analysis/", "best_model_off_target_specificity");
 %% Local Functions
 function average_error = compute_average_error(psets)
     errors = nan(length(psets),1);
