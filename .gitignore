@@ -1,0 +1,13 @@
+# Output files   #
+##################
+*.png
+*.eps
+
+# Model parameter files #
+#########################
+outputs/*
+outputs/*/*.csv
+
+# Other documents #
+###################
+documents/*
