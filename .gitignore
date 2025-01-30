@@ -2,6 +2,7 @@
 ##################
 *.png
 *.eps
+*.asv
 
 # Model parameter files #
 #########################
