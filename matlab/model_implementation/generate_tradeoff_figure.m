@@ -2,12 +2,9 @@ clc;
 clear;
 close all;
 
-working_directory = pwd(); % get the script directory
-switch_to_project_directory(); % switch to the code directory
-
 %% Load the fits
 % Load the distal substrate indices
-load("../data/matlab/distal_substrate_indices.mat");
+load("./data/matlab/distal_substrate_indices.mat");
 substrates = off_idx;
 
 C = 1; % [dCas9] (nM)
@@ -177,19 +174,11 @@ for ii = 1:num_parameters
     
     figure_file = "ensemble-tradeoff-combined-fixed"+parameter;
     
-    ylim([0,1.5]); % set lower bound to 0 for ease of discussion; in theory we can reach
-                   % regimes in which the off-target is more favorable
-                   % (leading to Specificity < 0)
-    
     pbaspect([1,1,1]);
-    %save_figure(gcf, "../figures/", "tradeoffs-ensemble-ci-fixed-arrow-lower-bound/", figure_file);
+    save_figure(gcf, "../../figures/", "tradeoffs-ensemble/", figure_file);
     %close;
         
 end
-
-%% Clean-up
-% switch back to the working directory
-cd(working_directory);
 
 %% Local Functions
 function err = compute_average_error(models)
