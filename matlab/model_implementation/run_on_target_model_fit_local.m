@@ -5,23 +5,32 @@
 %                on-/off-target model fits on the local PC.
 %
 
-working_directory = pwd(); % get the script directory
-switch_to_project_directory(); % switch to the code directory
+init_path();
 
-clc;
+substrate = 48;
+
+fprintf("Substrate ID: %i\n", substrate);
 
 % load energies from prior best fit model
 load("./data/matlab/model-02g-wt-48.mat");
 load("./data/matlab/model-02g-hf1-48.mat");
 
-x0 = [Ewt; Ehf1];
+x0 = [Ewt; Ehf1];    
 
-for ii = 1:length(smFRET_substrates)
-    substrate = smFRET_substrates(ii);
-    for seed = 1:1
-        [x, fx] = fit_simultaneous_model(seed, substrate, x0);
+% generate optimization bounds
+lb_val = -20;
+ub_val = 20;
+lb = lb_val * ones(68,1);
+ub = ub_val * ones(68,1);
+
+folder = "../../output/fitting/on-target-model-fit/test/";
+
+num_fits = 1;
+for seed = 1:num_fits
+    % run on-target model fit
+    [x, fx] = fit_simultaneous_model_relaxed_hnh_assumptions_fixed(seed, substrate, lb, ub, x0, folder);
+    fprintf("Score: %f\n", fx);
+    for ii = 1:length(x)
+        fprintf("Parameter %i: %f\n", ii, x(ii));
     end
 end
-
-% switch back to the working directory
-cd(working_directory);
